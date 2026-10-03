@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mikaniki — Institutional Seed Pitch Deck</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-canvas: #06090F;
+            --bg-slide: #0C111D;
+            --bg-card: #151D2F;
+            --bg-card-subtle: #101726;
+            --border-dim: #1E293B;
+            --border-bright: #334155;
+            --accent: #FF5722;          /* Automotive Sunset Orange */
+            --accent-glow: rgba(255, 87, 34, 0.15);
+            --accent-teal: #0D9488;
+            --accent-blue: #38BDF8;
+            --text-heading: #F8FAFC;
+            --text-body: #94A3B8;
+            --text-muted: #64748B;
+            --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-canvas);
+            color: var(--text-body);
+            font-family: var(--font-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* Deck Viewport */
+        .presentation-frame {
+            position: relative;
+            width: 100%;
+            max-width: 1220px;
+            aspect-ratio: 16 / 9;
+            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px var(--border-dim);
+            border-radius: 16px;
+            overflow: hidden;
+            background-color: var(--bg-slide);
+        }
+
+        /* Slide Container */
+        .slide {
+            position: absolute;
+            inset: 0;
+            padding: 48px 60px 38px 60px;
+            display: none;
+            flex-direction: column;
+            background-color: var(--bg-slide);
+            background-image: 
+                radial-gradient(circle at 100% 0%, var(--accent-glow) 0%, transparent 40%),
+                radial-gradient(circle at 0% 100%, rgba(13, 148, 136, 0.08) 0%, transparent 30%);
+            animation: fadeIn 0.2s ease-out forwards;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.995); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Headers & Badges */
+        .slide-tag {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--accent);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 6px;
+        }
+
+        .slide-tag::before {
+            content: "";
+            display: inline-block;
+            width: 7px;
+            height: 7px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        .slide-title {
+            font-size: 2.15rem;
+            font-weight: 800;
+            color: var(--text-heading);
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+            margin-bottom: 4px;
+        }
+
+        .slide-subtitle {
+            font-size: 0.98rem;
+            color: var(--text-muted);
+            margin-bottom: 22px;
+            font-weight: 400;
+        }
+
+        /* Layout Grids */
+        .content-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            min-height: 0;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 24px;
+            height: 100%;
+        }
+
+        .grid-2-equal {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            height: 100%;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            height: 100%;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+
+        .grid-6 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 14px;
+            height: 100%;
+        }
+
+        /* Cards & Modules */
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-dim);
+            border-radius: 10px;
+            padding: 16px 20px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .card-highlight {
+            border-color: var(--border-bright);
+            background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-card-subtle) 100%);
+        }
+
+        .stat-value {
+            font-size: 2.1rem;
+            font-weight: 800;
+            color: var(--text-heading);
+            letter-spacing: -0.03em;
+            line-height: 1;
+            margin-bottom: 4px;
+            font-family: var(--font-mono);
+        }
+
+        .stat-value.accent { color: var(--accent); }
+        .stat-value.teal { color: var(--accent-teal); }
+        .stat-value.blue { color: var(--accent-blue); }
+
+        .stat-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .card p, .card li {
+            font-size: 0.85rem;
+            line-height: 1.45;
+            color: var(--text-body);
+        }
+
+        ul.clean-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        ul.clean-list li {
+            position: relative;
+            padding-left: 18px;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        ul.clean-list li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* Tables & Matrices */
+        .table-wrap {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.82rem;
+        }
+
+        .table-wrap th {
+            text-align: left;
+            padding: 9px 12px;
+            background: var(--bg-card-subtle);
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid var(--border-dim);
+        }
+
+        .table-wrap td {
+            padding: 9px 12px;
+            border-bottom: 1px solid var(--border-dim);
+            color: var(--text-body);
+        }
+
+        .table-wrap tr:last-child td { border-bottom: none; }
+        .table-wrap td.highlight { color: var(--text-heading); font-weight: 700; }
+        .table-wrap td.tag-yes { color: #10B981; font-weight: 700; }
+        .table-wrap td.tag-no { color: #EF4444; font-weight: 600; }
+        .table-wrap td.tag-partial { color: #F59E0B; font-weight: 600; }
+
+        /* Image Placeholders */
+        .img-placeholder-box {
+            background-color: var(--bg-card-subtle);
+            border: 2px dashed var(--border-bright);
+            border-radius: 10px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .img-placeholder-box .badge-placeholder {
+            font-family: var(--font-mono);
+            background: var(--border-dim);
+            color: var(--accent);
+            font-size: 0.68rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .img-placeholder-box .placeholder-title {
+            color: var(--text-heading);
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .img-placeholder-box .placeholder-alt-text {
+            font-size: 0.74rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+            max-width: 92%;
+            background: rgba(0,0,0,0.3);
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* Title Slide Special */
+        .slide-title-layout {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100%;
+            padding-left: 20px;
+        }
+
+        .title-brand {
+            font-size: 4.2rem;
+            font-weight: 800;
+            color: var(--text-heading);
+            letter-spacing: -0.04em;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .title-brand span { color: var(--accent); }
+
+        .title-tagline {
+            font-size: 1.65rem;
+            color: #E2E8F0;
+            font-weight: 500;
+            margin-bottom: 20px;
+            max-width: 780px;
+            line-height: 1.3;
+        }
+
+        .title-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(3, auto);
+            gap: 40px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-dim);
+        }
+
+        /* Footer & Slide Counter */
+        .slide-footer {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 12px;
+            border-top: 1px solid var(--border-dim);
+            font-size: 0.72rem;
+            font-family: var(--font-mono);
+            color: var(--text-muted);
+        }
+
+        .slide-footer .logo-mini {
+            font-weight: 700;
+            color: var(--text-heading);
+            letter-spacing: 0.05em;
+        }
+
+        /* Controls */
+        .deck-controls {
+            margin-top: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .btn-nav {
+            background-color: var(--bg-card);
+            color: var(--text-heading);
+            border: 1px solid var(--border-bright);
+            padding: 6px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.15s ease;
+        }
+
+        .btn-nav:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        @media print {
+    @page {
+        size: landscape;
+        margin: 0;
+    }
+
+    /* 1. Kill all animations and transitions so nothing freezes at opacity: 0 */
+    *, *::before, *::after {
+        -webkit-animation: none !important;
+        animation: none !important;
+        -webkit-transition: none !important;
+        transition: none !important;
+    }
+
+    /* 2. Reset document flow */
+    html, body {
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        overflow: visible !important;
+        display: block !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background-color: #0C111D !important;
+    }
+
+    /* 3. Hide navigation bar and password gate */
+    .deck-controls, #gate {
+        display: none !important;
+    }
+
+    /* 4. Unbox presentation frame */
+    .presentation-frame {
+        position: static !important;
+        display: block !important;
+        width: 100% !important;
+        height: auto !important;
+        max-width: none !important;
+        aspect-ratio: auto !important;
+        overflow: visible !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        border: none !important;
+        background: transparent !important;
+    }
+
+    /* 5. Force ALL slides and their child content to be 100% visible */
+    .slide, .slide * {
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+    }
+
+    .slide {
+        position: relative !important;
+        inset: auto !important;
+        display: flex !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        min-height: 100vh !important;
+        max-height: 100vh !important;
+        box-sizing: border-box !important;
+        padding: 44px 56px 32px 56px !important;
+        overflow: hidden !important;
+
+        /* Page break rules */
+        page-break-before: auto !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+
+        /* Dark mode background rendering */
+        background-color: #0C111D !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    .slide:last-of-type {
+        page-break-after: avoid !important;
+        break-after: avoid !important;
+    }
+}
+    </style>
+</head>
+<body>
+
+<div class="presentation-frame">
+
+    <!-- SLIDE 1: Title -->
+    <div class="slide active" id="slide-1">
+        <div class="slide-title-layout">
+            <div class="slide-tag">Institutional Seed Pitch Deck</div>
+            <div class="title-brand">Mikaniki<span>.</span></div>
+            <div class="title-brand-arabic" style="font-size: 1.4rem; color: var(--accent); margin-bottom: 10px; font-weight: 700;">ميكانيكي</div>
+            <div class="title-tagline">Your personalised car-care at your fingertips.</div>
+            <p style="color: var(--text-body); max-width: 680px; font-size: 1rem; line-height: 1.5;">
+                Bahrain's premier on-demand automotive service marketplace. Transforming a fragmented $870M aftermarket through upfront menu pricing, door-to-door valet dispatch, and escrow-backed trust.
+            </p>
+            <div class="title-meta-grid">
+                <div>
+                    <div class="stat-label">Round Ask</div>
+                    <div style="font-weight: 700; color: var(--text-heading); font-family: var(--font-mono);">BHD 100k – 120k</div>
+                </div>
+                <div>
+                    <div class="stat-label">Product Status</div>
+                    <div style="font-weight: 700; color: var(--text-heading); font-family: var(--font-mono);">Functional MVP Live (Zero Agency Debt)</div>
+                </div>
+                <div>
+                    <div class="stat-label">Jurisdiction</div>
+                    <div style="font-weight: 700; color: var(--text-heading); font-family: var(--font-mono);">Kingdom of Bahrain (100% W.L.L.)</div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span class="logo-mini">MIKANIKI // CONFIDENTIAL</span>
+            <span>01 / 14</span>
+        </div>
+    </div>
+
+    <!-- SLIDE 2: Problem -->
+    <div class="slide" id="slide-2">
+        <div class="slide-tag">Market Friction</div>
+        <h2 class="slide-title">An 850,000-Vehicle Fleet Stranded in an Offline Market</h2>
+        <div class="slide-subtitle">Car ownership is ubiquitous in Bahrain, but vehicle servicing is fractured, opaque, and inefficient.</div>
+        
+        <div class="content-body">
+            <div class="grid-3">
+                <div class="card">
+                    <div class="stat-value accent">70%+</div>
+                    <div class="stat-label">Out of Factory Warranty</div>
+                    <p>With an average vehicle age of <strong>~8 years</strong>, the majority of cars in Bahrain have expired dealership coverage, leaving owners vulnerable to independent workshops.</p>
+                </div>
+                <div class="card">
+                    <div class="stat-value accent">Zero</div>
+                    <div class="stat-label">Price Transparency</div>
+                    <p>Garages rely on arbitrary cash/WhatsApp pricing. Lack of standardized part or labor estimates creates deep consumer distrust and fear of artificial markups.</p>
+                </div>
+                <div class="card">
+                    <div class="stat-value accent">4+ Hrs</div>
+                    <div class="stat-label">Wasted Per Maintenance Run</div>
+                    <p>Visiting industrial districts (Salmabad, Sitra), waiting in unconditioned garages, and coordinating two-way transit drains productive working hours.</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span class="logo-mini">MIKANIKI // PROBLEM</span>
+            <span>02 / 14</span>
+        </div>
+    </div>
+
+    <!-- SLIDE 3: Solution -->
+    <div class="slide" id="slide-3">
+        <div class="slide-tag">Platform Value Proposition</div>
+        <h2 class="slide-title">The Trust & Convenience Layer for Auto Care</h2>
+        <div class="slide-subtitle">An end-to-end marketplace connecting car owners with vetted Tier-2 workshops via software.</div>
+        
+        <div class="content-body">
+            <div class="grid-2-equal">
+                <div class="card card-highlight">
+                    <div class="stat-label" style="color: var(--accent);">D2C Consumer Super-App</div>
+                    <ul class="clean-list" style="margin-top: 10px;">
+                        <li><strong>Standardized Menu Pricing:</strong> Upfront fixed rates on oil changes, AC diagnostics, brake replacements, and tires.</li>
+                        <li><strong>Doorstep Valet & Towing:</strong> Contactless pickup and return, completely eliminating waiting in industrial parks.</li>
+                        <li><strong>Real-Time Milestone Tracking:</strong> Step-by-step progress tracking from bay check-in to road test and final invoice.</li>
+                        <li><strong>Digital Resale Passbook:</strong> Every platform service is immutably logged, preserving vehicle maintenance history.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="stat-label" style="color: var(--accent-teal);">Tier-2 Workshop Digital Engine</div>
+                    <ul class="clean-list" style="margin-top: 10px;">
+                        <li><strong>Zero-Install Web PWA:</strong> Mechanics manage incoming jobs on simple iPad/browser links without app store updates.</li>
+                        <li><strong>Enforced 20-Min SLA:</strong> Timed job acceptance windows ensure prompt service and eliminate dispatch bottlenecks.</li>
+                        <li><strong>Automated BENEFIT Payouts:</strong> Direct split payouts via Tap Payments, backed by a 7-day dispute escrow buffer.</li>
+                        <li><strong>Bay Capacity Utilization:</strong> Channels demand to fill empty garage lifts during mid-week off-peak windows.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span class="logo-mini">MIKANIKI // SOLUTION</span>
+            <span>03 / 14</span>
+        </div>
+    </div>
+
+    <!-- SLIDE 4: Market Size -->
+    <div class="slide" id="slide-4">
+        <div class="slide-tag">Market Opportunity</div>
+        <h2 class="slide-title">TAM / SAM / SOM: Backed by Bahrain Ministry Data</h2>
+        <div class="slide-subtitle">Clear fleet reconciliation derived directly from official Bahrain Open Data Portal statistics.</div>
+        
+        <div class="content-body">
+            <div class="grid-3" style="margin-bottom: 12px;">
+                <div class="card card-highlight">
+                    <div class="stat-label">Total Addressable (TAM)</div>
+                    <div class="stat-value accent">$870M</div>
+                    <p>Total Bahrain automotive repair, body ($150M), and oil change ($180M) workshops market (projected to reach $1.42B by 2034).</p>
+                </div>
+                <div class="card">
+                    <div class="stat-label">Serviceable Addressable (SAM)</div>
+                    <div class="stat-value">$513M</div>
+                    <p>Bahrain's ~4.8% share of the $10.7B GCC light vehicle aftermarket, directly tied to passenger and light commercial transport.</p>
+                </div>
+                <div class="card">
+                    <div class="stat-label">Year 3 Obtainable (SOM)</div>
+                    <div class="stat-value">BHD 4.8M</div>
+                    <p>~$12.7M GMV. Capturing ~2.5% of the serviceable vehicle base yields <strong>BHD 720,000 (~$1.9M)</strong> in annual net platform revenue.</p>
+                </div>
+            </div>
+            <div class="card" style="padding: 10px 18px;">
+                <div style="font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-mono);">
+                    <strong>DERIVATION OF 851,000 SERVICEABLE VEHICLES:</strong> 881,436 Total Registered Vehicles (data.gov.bh) minus 30,678 excluded categories (heavy buses, ambulances, royal court, diplomatic, taxis, public security) = <strong>~850,758 serviceable vehicles</strong> at ~610 cars per 1,000 inhabitants.
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span class="logo-mini">MIKANIKI // MARKET SIZE</span>
+            <span>04 / 14</span>
+        </div>
+    </div>
+
+    <!-- SLIDE 5: New Car Playbook -->
+    <div class="slide" id="slide-5">
+        <div class="slide-tag">Strategic Expansion</div>
+        <h2 class="slide-title">Monetizing Brand-New Vehicles Under Dealer Warranty</h2>
+        <div class="slide-subtitle">How Mikaniki captures vehicles 0–3 years old without voiding manufacturer powertrain warranties.</div>
+        
+        <div class="content-body">
+            <div class="grid-4">
+                <div class="card">
+                    <div class="stat-label" style="color: var(--accent);">Dealership Run Valet</div>
+                    <div class="stat-value" style="font-size: 1.4rem;">BHD 12–15</div>
+                    <p style="font-size: 0.8rem; margin-top: 6px;">Concierge service. Insured driver delivers the new vehicle to Kanoo (Toyota) or Almoayyed (Nissan) for warranty servicing and returns it. Zero customer queueing.</p>
+                </div>
+                <div class="card">
+                    <div class="stat-label" style="color: var(--accent);">Aesthetics & Detailing</div>
+                    <div class="stat-value" style="font-size: 1.4rem;">BHD 150+</div>
+                    <p style="font-size: 0.8rem; margin-top: 6px;">Factory warranties never cover GCC heat/sand damage. Mikaniki onboards premium detailing hubs for ceramic tinting, PPF, and paint preservation.</p>
+                </div>
+                <div class="card">
+                    <div class="stat-label" style="color: var(--accent);">Wear Consumables</div>
+                    <div class="stat-value" style="font-size: 1.4rem;">30% Savings</div>
+                    <p style="font-size: 0.8rem; margin-top: 6px;">Dealer markups on tires, wiper blades, and batteries exceed 50%. Replacing consumable items through Mikaniki does not legally void engine warranties.</p>
+                </div>
+                <div class="card">
+                    <div class="stat-label" style="color: var(--accent);">Day-1 LTV Lock-In</div>
+                    <div class="stat-value" style="font-size: 1.4rem;">LTV Trojan</div>
+                    <p style="font-size: 0.8rem; margin-top: 6px;">Logging dealer checks in the app during Years 1–3 builds trust. The moment the factory warranty lapses, Mikaniki seamlessly retains the owner.</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span class="logo-mini">MIKANIKI // NEW CAR STRATEGY</span>
+            <span>05 / 14</span>
+        </div>
+    </div>
+
+    <!-- SLIDE 6: Production Tech Stack & Snapshots -->
+    <div class="slide" id="slide-6">
+        <div class="slide-tag">Technical Architecture</div>
+        <h2 class="slide-title">Production MVP Built & Ready for Production</h2>
+        <div class="slide-subtitle">Engineered by a 12-year full-stack founder with zero external agency burn. Real-time event-driven infrastructure.</div>
+        
+        <div class="content-body">
+            <div class="grid-2">
+                <!-- 1. USER APP (Mobile Clip Replacement) -->
+                <div class="card" style="padding: 12px; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; background: #000; overflow: hidden; border: 1px solid var(--border-bright); border-radius: 12px;">
+                    <video autoplay loop muted playsinline poster="./app-homepage.png" style="width: 100%; height: 100%; max-height: 380px; object-fit: contain; border-radius: 8px;">
+                        <source src="./initiate-booking.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div style="font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono); margin-top: 8px;">
+                        React Native Mobile App // Live Dispatch & Tracking Flow
+                    </div>
+                </div>
+                <!-- 2. MECHANIC DASHBOARD (PWA Clip Replacement) -->
+                <div class="card" style="padding: 12px; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; background: #000; overflow: hidden; border: 1px solid var(--border-bright); border-radius: 12px;">
+                    <video autoplay loop muted playsinline poster="./pwa-homepage.png" style="width: 100%; height: 100%; max-height: 380px; object-fit: contain; border-radius: 8px;">
+                        <source src="./received-booking.mov" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div style="font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono); margin-top: 8px;">
+                        Next.js Responsive PWA // Real-Time Queue & SLA Timer
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span class="logo-mini">MIKANIKI // PRODUCT READY</span>
+            <span>06 / 14</span>
+        </div>
+    </div>
+
+    <!-- SLIDE 7: Bundled Services / GoMechanic Model (NEW) -->
+    <div class="slide" id="slide-7">
+        <div class="slide-tag">Production Product Innovation</div>
+        <h2 class="slide-title">Monthly Service Bundles & One-Time Payment Pass</h2>
+        <div class="slide-subtitle">Adopting GoMechanic’s proven bundled checkout model to boost Average Order Value (AOV) and retention.</div>
+        
+        <div class="content-body">
+            <div class="grid-3">
+                <div class="card card-highlight">
+                    <div class="stat-label" style="color: var(--accent);">Multi-Service Cart Pass</div>
+                    <div class="stat-value" style="font-size: 1.6rem;">+45% AOV</div>
+                    <p style="margin-top: 6px;">Instead of booking isolated repairs, users bundle 2–4 scheduled monthly services (e.g., Oil Change + AC Filter + Tire Rotation + Valet Check) into a single discounted cart checkout.</p>
+                </div>
+                <div class="card">
+                    <div class="stat-label" style="color: var(--accent-teal);">Payment Gateway Efficiency</div>
+                    <div class="stat-value" style="font-size: 1.6rem;">Lower Drag</div>
+                    <p style="margin-top: 6px;">Tap Payments fixed network fees (BHD 0.100 per tx) are amortized across multiple services in one transaction, preserving platform net take rate and lifting transaction margins.</p>
+                </div>
+                <div class="card">
+                    <div class="stat-label" style="color: var(--accent-blue);">Predictable Garage Revenue</div>
+                    <div class="stat-value" style="font-size: 1.6rem;">30-Day Fill</div>
+                    <p style="margin-top: 6px;">Garages receive pre-paid, scheduled booking commitments across the month, smoothing out mechanic downtime and disincentivizing off-platform cash deals.</p>
+                </div>
+            </div>
+            <div class="card" style="margin-top: 14px; padding: 12px 20px;">
+                <div style="font-size: 0.82rem; color: var(--text-body); line-height: 1.45;">
+                    <strong style="color: var(--text-heading);">ROADMAP TIMELINE:</strong> Built for Production Launch (V1) post-pilot. While the current MVP operates on clean single-job requests, the bundled pass engine uses the existing Firestore state machine to schedule staggered multi-date garage appointments under one parent invoice.
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span class="logo-mini">MIKANIKI // PRODUCT ROADMAP</span>
+            <span>07 / 14</span>
+        </div>
+    </div>
+
+    <!-- SLIDE 8: Competitive Landscape (NEW) -->
+    <div class="slide" id="slide-8">
+        <div class="slide-tag">Market Differentiation</div>
+        <h2 class="slide-title">Competitive Landscape: Bahrain Automotive Ecosystem</h2>
+        <div class="slide-subtitle">Clear operational differentiation against local classified directories, dealer monopolies, and generalist apps.</div>
+        
+        <div class="content-body">
+            <div class="card" style="padding: 8px 14px;">
+                <table class="table-wrap">
+                    <thead>
+                        <tr>
+                            <th>Capability / Metric</th>
+                            <th style="color: var(--accent);">Mikaniki (Our App)</th>
+                            <th>Autobay.me</th>
+                            <th>MotorCity Bahrain</th>
+                            <th>App-ening / General Apps</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="highlight">Business Model</td>
+                            <td class="tag-yes">Transactional Marketplace</td>
+                            <td>Static Classifieds / Listings</td>
+                            <td>Captive Dealership / Importer</td>
+                            <td>General Lifestyle / Agency Apps</td>
+                        </tr>
+                        <tr>
+                            <td class="highlight">Upfront Transparent Pricing</td>
+                            <td class="tag-yes">Yes (Standardized Menus)</td>
+                            <td class="tag-no">No (Call for Quote)</td>
+                            <td class="tag-partial">Fixed High Dealership Rates</td>
+                            <td class="tag-no">No Automotive Scope</td>
+                        </tr>
+                        <tr>
+                            <td class="highlight">Real-Time Booking & Tracking</td>
+                            <td class="tag-yes">Yes (State Machine + GPS)</td>
+                            <td class="tag-no">No (Directory Only)</td>
+                            <td class="tag-partial">Phone / Web Form Only</td>
+                            <td class="tag-no">No Vertical Workflow</td>
+                        </tr>
+                        <tr>
+                            <td class="highlight">Doorstep Valet & Towing</td>
+                            <td class="tag-yes">Yes (Integrated & Insured)</td>
+                            <td class="tag-no">No</td>
+                            <td class="tag-no">No (Customer Drops Off)</td>
+                            <td class="tag-no">No</td>
+                        </tr>
+                        <tr>
+                            <td class="highlight">Escrow & Quality Guarantee</td>
+                            <td class="tag-yes">Yes (7-Day Escrow Buffer)</td>
+                            <td class="tag-no">No (Zero Accountability)</td>
+                            <td class="tag-partial">Dealer Warranty Only</td>
+                            <td class="tag-no">No Escrow Protection</td>
+                        </tr>
+                        <tr>
+                            <td class="highlight">Brand Coverage</td>
+                            <td class="tag-yes">Multi-Brand Agnostic</td>
+                            <td>Multi-Brand (Unvetted)</td>
+                            <td class="tag-no">Captive Brands Only</td>
+                            <td>N/A</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 10px; font-family: var(--font-mono);">
+                <strong>CORE MOAT:</strong> Autobay.me captures search traffic without transactional ownership. MotorCity operates high-margin, single-brand silos. Mikaniki captures full transaction flow, vehicle history, and payment escrow across independent multi-brand workshops.
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span class="logo-mini">MIKANIKI // COMPETITIVE ADVANTAGE</span>
+            <span>08 / 14</span>
+        </div>
+    </div>
+
+    <!-- SLIDE 9: Monetization Engine (EXPANDED) -->
+    <div class="slide" id="slide-9">
+        <div class="slide-tag">Revenue Streams</div>
+        <h2 class="slide-title">Multi-Layered Monetization Engine</h2>
+        <div class="slide-subtitle">Beyond simple commissions: Diversified income across high-margin sponsorships, B2B SaaS, and ancillary services.</div>
+        
+        <div class="content-body">
+            <div class="grid-6">
+                <div class="card card-highlight">
+                    <div class="stat-label" style="color: var(--accent);">1. B2C Take Rate</div>
+                    <div class="stat-value" style="font-size: 1.4rem;">12% – 15%</div>
+                    <p style="font-size: 0.78rem;">Platform commission deducted from the garage on every completed B2C repair and servicing booking.</p>
+                </div>
+                <div class="card">
+                    <div class="stat-label" style="color: var(--accent-teal);">2. B2B Fleet SaaS</div>
+                    <div class="stat-value" style="font-size: 1.4rem;">BHD 5 / Car</div>
+                    <p style="font-size: 0.78rem;">Monthly management fee per commercial car for rental/delivery fleets + reduced 8-10% repair commission.</p>
+                </div>
+                <div class="card">
+                    <div class="stat-label" style="color: var(--accent-blue);">3. Lubricant Sponsorships</div>
+                    <div class="stat-value" style="font-size: 1.4rem;">High Margin</div>
+                    <p style="font-size: 0.78rem;">Exclusive brand placements in the oil change funnel for major lubricant manufacturers (e.g., Shell, Mobil 1, Castrol).</p>
+                </div>
+                <div class="card">
+                    <div class="stat-label" style="color: var(--accent);">4. Insurance Partnerships</div>
+                    <div class="stat-value" style="font-size: 1.4rem;">Referral Fees</div>
+                    <p style="font-size: 0.78rem;">Pre-insurance vehicle inspection reports and direct claim routing to vetted network body shops (GIG, Solidarity).</p>
+                </div>
+                <div class="card">
+                    <div class="stat-label" style="color: var(--accent-teal);">5. In-App Promoted Listings</div>
+                    <div class="stat-value" style="font-size: 1.4rem;">PPC / Weekly</div>
+                    <p style="font-size: 0.78rem;">Garages pay for top-rail placement on Typesense search results and verified featured badges in their local zone.</p>
+                </div>
+                <div class="card">
+                    <div class="stat-label" style="color: var(--accent-blue);">6. Optional VAS Add-ons</div>
+                    <div class="stat-value" style="font-size: 1.4rem;">BHD 2 – 5</div>
+                    <p style="font-size: 0.78rem;">Express priority bay dispatch, extended 30-day platform warranty, and flatbed recovery add-ons.</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span class="logo-mini">MIKANIKI // BUSINESS MODEL</span>
+            <span>09 / 14</span>
+        </div>
+    </div>
+
+    <!-- SLIDE 10: Unit Economics Across Tiers -->
+    <div class="slide" id="slide-10">
+        <div class="slide-tag">Unit Economics</div>
+        <h2 class="slide-title">Healthy Margins Across Bahrain Garage Tiers</h2>
+        <div class="slide-subtitle">Sustained positive contribution margins on every booking from Day 1 without price subsidies.</div>
+        
+        <div class="content-body">
+            <div class="card" style="padding: 8px 14px;">
+                <table class="table-wrap">
+                    <thead>
+                        <tr>
+                            <th>Unit Metric</th>
+                            <th>Tier 1: Dealership Concierge</th>
+                            <th>Tier 2: Mid-Level Multi-Bay (Core)</th>
+                            <th>Tier 3: Traditional Independent</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="highlight">Average Service Value (ASV)</td>
+                            <td>BHD 15.00 (Flat Valet Fee)</td>
+                            <td class="highlight" style="color: var(--accent);">BHD 48.00 (Periodic/AC/Brakes)</td>
+                            <td>BHD 22.00 (Minor Fix / Oil)</td>
+                        </tr>
+                        <tr>
+                            <td class="highlight">Platform Take Rate</td>
+                            <td>100% (Direct Convenience Fee)</td>
+                            <td>15% Standard Commission</td>
+                            <td>18% Volume Take</td>
+                        </tr>
+                        <tr>
+                            <td class="highlight">Gross Revenue / Tx</td>
+                            <td>BHD 15.00</td>
+                            <td class="highlight" style="color: var(--accent);">BHD 7.20</td>
+                            <td>BHD 3.96</td>
+                        </tr>
+                        <tr>
+                            <td class="highlight">Payment Gateway & Reserves</td>
+                            <td>(BHD 1.05)</td>
+                            <td>(BHD 2.50)</td>
+                            <td>(BHD 1.20)</td>
+                        </tr>
+                        <tr>
+                            <td class="highlight">Net Contribution Margin</td>
+                            <td><strong>BHD 6.45 (43%)</strong></td>
+                            <td class="highlight" style="color: var(--accent);"><strong>BHD 4.70 (65%)</strong></td>
+                            <td><strong>BHD 2.76 (70%)</strong></td>
+                        </tr>
+                        <tr>
+                            <td class="highlight">Target Blended CAC</td>
+                            <td>BHD 8.00</td>
+                            <td>BHD 10.00</td>
+                            <td>BHD 6.00</td>
+                        </tr>
+                        <tr>
+                            <td class="highlight">Projected LTV : CAC</td>
+                            <td><strong>4.2 : 1</strong></td>
+                            <td class="highlight" style="color: var(--accent);"><strong>4.8 : 1</strong></td>
+                            <td><strong>3.6 : 1</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 10px; font-family: var(--font-mono);">
+                *Tier 1 monetizes via our white-glove valet concierge fee; the dealership bills the customer directly for parts/warranty repairs.
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span class="logo-mini">MIKANIKI // UNIT ECONOMICS</span>
+            <span>10 / 14</span>
+        </div>
+    </div>
+
+    <!-- SLIDE 11: Go-To-Market -->
+    <div class="slide" id="slide-11">
+        <div class="slide-tag">Go-To-Market Strategy</div>
+        <h2 class="slide-title">Density Before Breadth: The 3-Stage Rollout</h2>
+        <div class="slide-subtitle">Capturing deep supply-demand liquidity in industrial clusters before scaling Kingdom-wide.</div>
+        
+        <div class="content-body">
+            <div class="grid-3">
+                <div class="card card-highlight">
+                    <div class="stat-label" style="color: var(--accent);">Phase 1: Salmabad Pilot</div>
+                    <div style="font-weight: 700; color: var(--text-heading); margin-bottom: 6px;">Months 1 – 3</div>
+                    <ul class="clean-list">
+                        <li>Focus strictly on <strong>10 Tier-2 workshops</strong> in Salmabad/Tubli.</li>
+                        <li>Self-drop & driver valet only (towing disabled initially).</li>
+                        <li>Founder concierge: manually monitoring initial 100 bookings to verify zero defects.</li>
+                        <li>Direct residential outreach in Saar, Janabiyah, and Riffa.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="stat-label" style="color: var(--accent);">Phase 2: City-Wide Scale</div>
+                    <div style="font-weight: 700; color: var(--text-heading); margin-bottom: 6px;">Months 4 – 9</div>
+                    <ul class="clean-list">
+                        <li>Expand supply to 35 verified garages across Manama, Riffa, and Muharraq.</li>
+                        <li>Launch the seasonal <strong>"Summer AC Rescue"</strong> campaign.</li>
+                        <li>Activate performance micro-influencers with tracked affiliate promo codes on TikTok/Instagram.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="stat-label" style="color: var(--accent);">Phase 3: B2B Fleet SaaS</div>
+                    <div style="font-weight: 700; color: var(--text-heading); margin-bottom: 6px;">Months 10 – 18</div>
+                    <ul class="clean-list">
+                        <li>Deploy Next.js fleet management dashboard.</li>
+                        <li>Target last-mile delivery fleets (Talabat/Jahez contractors) and mid-sized car rental pools.</li>
+                        <li>Locks in recurring monthly SaaS revenue and stable GMV baseline.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span class="logo-mini">MIKANIKI // GTM EXECUTION</span>
+            <span>11 / 14</span>
+        </div>
+    </div>
+
+    <!-- SLIDE 12: Legal & Facilitator Shield -->
+    <div class="slide" id="slide-12">
+        <div class="slide-tag">Legal & Compliance</div>
+        <h2 class="slide-title">De-Risked Incorporation & Regulatory Architecture</h2>
+        <div class="slide-subtitle">Clear statutory pathway to full commercial licensing, foreign ownership, and operational protection.</div>
+        
+        <div class="content-body">
+            <div class="grid-2-equal">
+                <div class="card">
+                    <div class="stat-label" style="color: var(--accent);">Incorporation & Visa Transition</div>
+                    <ul class="clean-list" style="margin-top: 8px;">
+                        <li><strong>100% Foreign Ownership W.L.L.:</strong> Formed under Decree 28/2020 (no legacy BHD 20k deposit requirement; incorporated with statutory BHD 1,000 capital).</li>
+                        <li><strong>Investor Visa Resolution:</strong> Term sheet triggers resignation, MoIC Sijilat filing, and LMRA Partner/Investor Visa issuance, removing employment constraints.</li>
+                        <li><strong>Data Governance:</strong> Full compliance with Bahrain's Personal Data Protection Law (PDPL) for customer vehicle records.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="stat-label" style="color: var(--accent-teal);">Operational Shield & Escrow</div>
+                    <ul class="clean-list" style="margin-top: 8px;">
+                        <li><strong>Commercial Driving Liability:</strong> Comprehensive "Care, Custody & Control" policy underwritten by local insurer (GIG/SNIC) for valet movements.</li>
+                        <li><strong>7-Day Dispute Buffer:</strong> Customer funds held in escrow for 7 days post-service to arbitrate rework claims before payout release.</li>
+                        <li><strong>Anti-Disintermediation Clause:</strong> B2B workshop agreements enforce a BHD 250 penalty and immediate platform delisting for off-platform leakage.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span class="logo-mini">MIKANIKI // COMPLIANCE</span>
+            <span>12 / 14</span>
+        </div>
+    </div>
+
+    <!-- SLIDE 13: Team -->
+    <div class="slide" id="slide-13">
+        <div class="slide-tag">Founding Team</div>
+        <h2 class="slide-title">12 Years Full-Stack Engineering: Zero Dev Waste</h2>
+        <div class="slide-subtitle">Combining deep software engineering craftsmanship with local GCC operational agility.</div>
+        
+        <div class="content-body">
+            <div class="grid-2">
+                <div class="card card-highlight">
+                    <div class="stat-label" style="color: var(--accent);">The Founder Profile</div>
+                    <div style="font-size: 1.35rem; font-weight: 800; color: var(--text-heading); margin-bottom: 2px;">Solo Technical Founder</div>
+                    <div style="font-family: var(--font-mono); font-size: 0.82rem; color: var(--accent); margin-bottom: 12px;">12+ Years Enterprise Engineering</div>
+                    <p style="margin-bottom: 10px;">Over a decade of architectural experience in distributed systems, real-time reactive front-ends, and scalable cloud topologies.</p>
+                    <p>Solely architected and developed the entire Mikaniki ecosystem: React Native consumer mobile app, Next.js PWA workshop dashboard, Firebase event engine, and Typesense scoring algorithms.</p>
+                </div>
+                <div class="card">
+                    <div class="stat-label">Capital Efficiency Multiplier</div>
+                    <ul class="clean-list" style="margin-top: 6px;">
+                        <li><strong>Zero Agency Cash Burn:</strong> Typical tech startups burn 40-50% of pre-seed rounds paying outsourced dev agencies. Mikaniki enters the market with a completed MVP at $0 dev debt.</li>
+                        <li><strong>Immediate Feedback Loop:</strong> Bug fixes, algorithm tweaks, and UX updates are coded and deployed within hours, not weeks.</li>
+                        <li><strong>100% Capital Focus:</strong> Pre-seed funds go directly to customer acquisition, operational scaling, and legal compliance.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span class="logo-mini">MIKANIKI // EXECUTION CAPACITY</span>
+            <span>13 / 14</span>
+        </div>
+    </div>
+
+    <!-- SLIDE 14: The Ask & Allocation -->
+    <div class="slide" id="slide-14">
+        <div class="slide-tag">Investment Opportunity</div>
+        <h2 class="slide-title">The Ask: BHD 110,000 Pre-Seed Runway</h2>
+        <div class="slide-subtitle">Structured for an 18 to 24-month runway achieving clear milestone-driven inflection points.</div>
+        
+        <div class="content-body">
+            <div class="grid-4" style="margin-bottom: 12px;">
+                <div class="card">
+                    <div class="stat-label">Core Team & Ops</div>
+                    <div class="stat-value" style="font-size: 1.4rem;">47.7%</div>
+                    <div style="font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-mono);">BHD 52,500</div>
+                    <p style="font-size: 0.75rem; margin-top: 4px;">Founder stipend (BHD 1.5k/mo) + Bilingual Ops Lead (M6-24) + outsourced accounting.</p>
+                </div>
+                <div class="card">
+                    <div class="stat-label">Growth & GTM</div>
+                    <div class="stat-value" style="font-size: 1.4rem;">24.5%</div>
+                    <div style="font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-mono);">BHD 27,000</div>
+                    <p style="font-size: 0.75rem; margin-top: 4px;">Digital ads (Meta/TikTok), influencer affiliate commissions, offline door-hangers.</p>
+                </div>
+                <div class="card">
+                    <div class="stat-label">Cloud, SMS & APIs</div>
+                    <div class="stat-value" style="font-size: 1.4rem;">11.6%</div>
+                    <div style="font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-mono);">BHD 12,800</div>
+                    <p style="font-size: 0.75rem; margin-top: 4px;">Twilio OTP authentication, Google Maps Platform, Firebase reads, Typesense cluster.</p>
+                </div>
+                <div class="card">
+                    <div class="stat-label">Legal, G&A & Reserve</div>
+                    <div class="stat-value" style="font-size: 1.4rem;">16.2%</div>
+                    <div style="font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-mono);">BHD 17,800</div>
+                    <p style="font-size: 0.75rem; margin-top: 4px;">WLL formation, Investor Visa, Valet commercial insurance, and BHD 6k working buffer.</p>
+                </div>
+            </div>
+
+            <!-- Milestones Row -->
+            <div class="card card-highlight" style="padding: 10px 18px;">
+                <div class="grid-4" style="text-align: center;">
+                    <div>
+                        <div class="stat-label">Month 3</div>
+                        <div style="font-weight: 700; color: var(--text-heading); font-size: 0.85rem;">10 Garages / 100 Trips</div>
+                    </div>
+                    <div>
+                        <div class="stat-label">Month 6</div>
+                        <div style="font-weight: 700; color: var(--text-heading); font-size: 0.85rem;">350 Bookings / Mo</div>
+                    </div>
+                    <div>
+                        <div class="stat-label">Month 12</div>
+                        <div style="font-weight: 700; color: var(--text-heading); font-size: 0.85rem;">1,200 Bookings / Mo</div>
+                    </div>
+                    <div>
+                        <div class="stat-label">Month 24</div>
+                        <div style="font-weight: 700; color: var(--accent); font-size: 0.85rem;">Cash-Flow Breakeven</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span class="logo-mini">MIKANIKI // THE ASK</span>
+            <span>14 / 14</span>
+        </div>
+    </div>
+
+</div>
+
+<!-- Navigation Controls -->
+<div class="deck-controls">
+    <button class="btn-nav" id="prevBtn" onclick="changeSlide(-1)">← Previous</button>
+    <span id="slideIndicator">Slide 1 of 14</span>
+    <button class="btn-nav" id="nextBtn" onclick="changeSlide(1)">Next →</button>
+</div>
+
+<script>
+    let currentSlide = 1;
+    const totalSlides = 14;
+
+    function showSlide(index) {
+        document.querySelectorAll('.slide').forEach((slide, idx) => {
+            slide.classList.remove('active');
+            if (idx === index - 1) {
+                slide.classList.add('active');
+            }
+        });
+        document.getElementById('slideIndicator').innerText = `Slide ${index} of ${totalSlides}`;
+        document.getElementById('prevBtn').disabled = (index === 1);
+        document.getElementById('nextBtn').disabled = (index === totalSlides);
+    }
+
+    function changeSlide(direction) {
+        currentSlide += direction;
+        if (currentSlide < 1) currentSlide = 1;
+        if (currentSlide > totalSlides) currentSlide = totalSlides;
+        showSlide(currentSlide);
+    }
+
+    // Keyboard Arrow Navigation
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ') {
+            changeSlide(1);
+        } else if (e.key === 'ArrowLeft') {
+            changeSlide(-1);
+        }
+    });
+
+    // Initialize State
+    showSlide(currentSlide);
+</script>
+
+</body>
+</html>
