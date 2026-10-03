@@ -475,6 +475,103 @@
         break-after: avoid !important;
     }
 }
+/* ==========================================================================
+   MOBILE & TABLET RESPONSIVE STYLES (Viewport <= 768px)
+   ========================================================================== */
+@media screen and (max-width: 768px) {
+    body {
+        padding: 8px;
+        justify-content: flex-start;
+    }
+
+    /* 1. Unlock the fixed 16:9 desktop container */
+    .presentation-frame {
+        aspect-ratio: unset !important;
+        height: auto !important;
+        min-height: calc(100vh - 75px);
+        border-radius: 12px;
+        overflow: visible !important;
+    }
+
+    /* 2. Un-pin absolute positioning so slides stretch to fit content */
+    .slide {
+        position: relative !important;
+        inset: unset !important;
+        padding: 24px 18px 20px 18px !important;
+        min-height: calc(100vh - 75px);
+        overflow-y: visible !important;
+        display: none;
+    }
+
+    .slide.active {
+        display: flex !important;
+    }
+
+    /* 3. Scale typography for mobile screens */
+    .title-brand { font-size: 2.8rem !important; }
+    .title-tagline { font-size: 1.2rem !important; margin-bottom: 16px !important; }
+    .slide-title { font-size: 1.45rem !important; line-height: 1.25 !important; }
+    .slide-subtitle { font-size: 0.85rem !important; margin-bottom: 16px !important; }
+    .stat-value { font-size: 1.6rem !important; }
+    .stat-label { font-size: 0.7rem !important; }
+
+    /* 4. Collapse all multi-column grids into single-column vertical stacks */
+    .grid-2,
+    .grid-2-equal,
+    .grid-3,
+    .grid-4,
+    .grid-6 {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 12px !important;
+        height: auto !important;
+    }
+
+    .title-meta-grid {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 16px !important;
+        margin-top: 14px !important;
+        padding-top: 14px !important;
+    }
+
+    /* 5. Make dense comparison tables scrollable horizontally */
+    .card:has(.table-wrap),
+    .table-wrap {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .table-wrap {
+        min-width: 500px; /* Prevents text columns from squeezing */
+    }
+
+    /* 6. Mobile video and placeholder container heights */
+    .img-placeholder-box,
+    video {
+        max-height: 240px !important;
+    }
+
+    /* 7. Sticky bottom navigation bar for thumbs */
+    .deck-controls {
+        position: sticky;
+        bottom: 8px;
+        width: 100%;
+        max-width: 100%;
+        margin-top: 10px;
+        padding: 8px 12px;
+        background: rgba(12, 17, 29, 0.95);
+        backdrop-filter: blur(12px);
+        border: 1px solid var(--border-bright);
+        border-radius: 10px;
+        justify-content: space-between;
+        z-index: 1000;
+    }
+
+    .btn-nav {
+        padding: 8px 14px;
+        font-size: 0.8rem;
+    }
+}
     </style>
 </head>
 <body>
